@@ -1,9 +1,19 @@
 import {cacheable, ttl, cacheableOptions, CacheProviders} from '../../lib';
 import * as _ from 'lodash';
+import {Kitten} from './models/Kittens';
+
 
 const {MemoryProvider} = CacheProviders;
 
 const memoryProvider = new MemoryProvider({providerName: 'MainProvider'});
+
+export interface IGetKittensByIds {
+    _id: string[];
+}
+
+export interface IAddKitten {
+    name: string | string[];
+}
 
 export class TestA {
     @cacheable(memoryProvider)
@@ -42,5 +52,26 @@ export class TestA {
                     }
                 }, 2000);
         });
+    }
+
+
+    async getKittensByIds(data: IGetKittensByIds, options: any) {
+        return Kitten.find({_id: {$in: data._id}});
+    }
+
+    async getKittenById(_id: string, options: any) {
+        return (Kitten as any).cacheable().findById(_id);
+    }
+
+    async addKitten(data: IAddKitten, options: any) {
+        if (_.isArray(data.name)) {
+            return Kitten.create(data.name.map((singleName) => {
+                return {
+                    name: singleName
+                };
+            }));
+        } else {
+            return Kitten.create(data);
+        }
     }
 }
