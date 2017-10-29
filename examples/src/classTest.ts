@@ -1,6 +1,6 @@
-import {cacheable, ttl, cacheableOptions, cache, CacheProviders} from '../../lib';
+import {cacheable, ttl, cacheableOptions, CacheProviders} from '../../lib';
 import * as _ from 'lodash';
-import {CacheType} from '../../src/main';
+
 const {MemoryProvider} = CacheProviders;
 
 const memoryProvider = new MemoryProvider({providerName: 'MainProvider'});
