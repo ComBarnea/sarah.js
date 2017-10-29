@@ -1,0 +1,48 @@
+{
+  "name": "sarah.js",
+  "version": "0.0.1",
+  "description": "caching lib",
+  "main": "lib/index.js",
+  "types": "lib/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build:live",
+    "start:exm": "npm run build:live:examples",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts",
+    "build": "tsc",
+    "build:examples": "tsc --p examples/tsconfig.json",
+    "build:live:examples": "nodemon --exec ./node_modules/.bin/ts-node -- ./examples/src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ComBarnea/sarah.js.git"
+  },
+  "keywords": [
+    "cache"
+  ],
+  "author": "Tomer Barnea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ComBarnea/sarah.js/issues"
+  },
+  "homepage": "https://github.com/ComBarnea/sarah.js#readme",
+  "devDependencies": {
+    "@types/lodash": "^4.14.80",
+    "@types/node": "^7.0.5",
+    "@types/npm": "^2.0.28",
+    "@types/reflect-metadata": "0.0.5",
+    "nodemon": "^1.12.1",
+    "reflect-metadata": "^0.1.10",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3",
+    "zone.js": "^0.8.18"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "object-hash": "^1.2.0",
+    "reflect-metadata": "^0.1.10"
+  }
+}

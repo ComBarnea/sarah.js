@@ -1,0 +1,12 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "target": "ES2017",
+    "module": "commonjs",
+    "outDir": "dist",
+    "experimentalDecorators": true
+  }
+}
