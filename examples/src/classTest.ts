@@ -1,6 +1,6 @@
 import {cacheable, ttl, cacheableOptions, CacheProviders} from '../../lib';
 import * as _ from 'lodash';
-import {Kitten} from './models/Kittens';
+//import {Kitten} from './models/Kittens';
 
 
 const {MemoryProvider} = CacheProviders;
@@ -16,7 +16,7 @@ export interface IAddKitten {
 }
 
 export class TestA {
-    @cacheable(memoryProvider)
+    @cacheable(memoryProvider, 'Kittens')
     @ttl(6)  // optional
     @cacheableOptions({  // optional
         input: {
@@ -55,7 +55,7 @@ export class TestA {
     }
 
 
-    async getKittensByIds(data: IGetKittensByIds, options: any) {
+    /*async getKittensByIds(data: IGetKittensByIds, options: any) {
         return Kitten.find({_id: {$in: data._id}});
     }
 
@@ -73,5 +73,5 @@ export class TestA {
         } else {
             return Kitten.create(data);
         }
-    }
+    }*/
 }

@@ -1,13 +1,20 @@
 import {TestA} from './classTest';
-import {DBProviders} from '../../lib';
-import * as mongoose from 'mongoose';
+// import {DBProviders} from '../../lib';
+//import * as mongoose from 'mongoose';
+import * as objectHash from 'object-hash';
+import {inspect} from 'util';
+
+
+
 const newTestA = new TestA();
 
+/*
 mongoose.connect('mongodb://localhost/shara-test', {
     useMongoClient: true
 });
+*/
 
-DBProviders.MongooseDBProvider(mongoose);
+// DBProviders.MongooseDBProvider(mongoose);
 
 console.log('newTestA', typeof newTestA);
 
@@ -49,7 +56,14 @@ newTestA.getKittenById('59f59bd67fb6661d04bd17a2', {})
     console.log('err getKittenById', err);
 });
 
+const ans = {
+    [Symbol('s1')]: 'sdsd',
+    [Symbol('s2')]: 'sdsd',
+};
 
+console.log('ans', ans);
+// console.log('s1', s1);
+// console.log('s2', (s1 as any).valueOf());
 /*
 newTestA.addKitten({name: ['mimi', 'mipi', 'momo', 'popo']}, {})
 .then((ans) => {
@@ -60,3 +74,4 @@ newTestA.addKitten({name: ['mimi', 'mipi', 'momo', 'popo']}, {})
 });
 */
 
+console.log(Object.getOwnPropertySymbols(ans));

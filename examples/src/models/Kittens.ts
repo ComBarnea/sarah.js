@@ -1,3 +1,4 @@
+/*
 import * as mongoose from 'mongoose';
 
 const kittySchema = new mongoose.Schema({
@@ -5,4 +6,4 @@ const kittySchema = new mongoose.Schema({
 });
 
 
-export const Kitten = mongoose.model('Kitten', kittySchema);
+export const Kitten = mongoose.model('Kitten', kittySchema);*/

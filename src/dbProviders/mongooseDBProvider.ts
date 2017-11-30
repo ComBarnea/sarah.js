@@ -1,3 +1,4 @@
+/*
 import * as mongoose from 'mongoose';
 
 
@@ -21,4 +22,4 @@ export function MongooseDBProvider(mongooseInstance: any) {
     };
 
     return mongooseInstance;
-}
+}*/
