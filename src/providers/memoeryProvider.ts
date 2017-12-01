@@ -33,7 +33,6 @@ export class MemoryProvider extends CacheProvider implements ICacheProvider {
     }
 
     public async set(requestedData: {val: any, hash: string}[], ttl?: number): Promise<any | any[]> {
-        // console.log('set', requestedData, ttl);
         for (let i = 0; i < requestedData.length; i ++) {
             const singleRequestData = requestedData[i];
 
@@ -52,6 +51,7 @@ export class MemoryProvider extends CacheProvider implements ICacheProvider {
             }
 
         }
+
 
         return requestedData.map((single) => single.val);
     }

@@ -1,6 +1,82 @@
 import {cacheable, ttl, cacheableOptions, CacheProviders} from '../../lib';
 import * as _ from 'lodash';
-//import {Kitten} from './models/Kittens';
+'use strict';
+import * as Sequelize  from 'sequelize';
+
+process.env.RC_SQL_USERNAME = 'rcdbadmin';
+process.env.RC_SQL_PASSWORD = '9Na$yrVUFhX8Lr3C9KurH2gWfANna^&r';
+process.env.RC_SQL_DATABASE = 'reccenterdb';
+process.env.RC_SQL_HOST = 'rc-dev-eu-db-sql.c8vvoishhbpv.eu-west-1.rds.amazonaws.com';
+process.env.RC_SQL_DIALECT = 'postgres';
+
+
+const sequelizeInstance: Sequelize.Sequelize = new Sequelize(process.env.RC_SQL_DATABASE, process.env.RC_SQL_USERNAME, process.env.RC_SQL_PASSWORD, {
+    host: process.env.RC_SQL_HOST,
+    dialect: process.env.RC_SQL_DIALECT,
+    logging: false,
+    pool: {
+        max: 150
+    }
+});
+
+
+export const sequelize = sequelizeInstance;
+const {DataTypes} = require('sequelize');
+
+
+// generateInterfaceToEnum
+export interface IFeaturedEntitySchema {
+    id?: number;
+    entityType?: any;
+    entityId?: number;
+}
+
+export const FeaturedEntitySchema = {
+    entityType: DataTypes.STRING,
+    entityId: DataTypes.INTEGER
+};
+
+
+
+
+export interface FeaturedEntityInstance extends Sequelize.Instance<IFeaturedEntitySchema>, IFeaturedEntitySchema {
+}
+
+export interface FeaturedEntityModel extends Sequelize.Model<FeaturedEntityInstance, IFeaturedEntitySchema> { }
+
+
+
+const FeaturedEntity = sequelize.define('FeaturedEntity', FeaturedEntitySchema, {
+
+    classMethods: {
+        associate: (models) => {
+            // console.log('sdsd');
+        },
+        scoping: (models) => {
+            // console.log('sdsd');
+        }
+    }
+});
+
+
+export interface AppModels {
+    FeaturedEntity: FeaturedEntityModel;
+
+}
+const modelsObject: AppModels = {} as AppModels;
+
+
+export const models = modelsObject;
+export {Sequelize};
+
+
+sequelize.sync(/*{force: true}*/)
+    .then(() => {
+        console.log('sequlize then');
+    })
+    .catch((err) => {
+        console.log('sequlize catch', err);
+    });
 
 
 const {MemoryProvider} = CacheProviders;
@@ -33,45 +109,63 @@ export class TestA {
             }
         }
     })
-    getDataById(data: any, options: any)  {
+    getDataByIdCacheable(data: any, options: any)  {
         return new Promise((resolve, reject) => {
-            console.log('getDataById', data);
-                setTimeout(() => {
-                    if (_.isArray(data.id)) {
-                        resolve(data.id.map((singleId) => {
-                            return {
-                                id: singleId,
-                                data: 'some data'
-                            };
-                        }));
-                    } else {
-                        resolve({
-                            id: data.id,
-                            data: 'some data'
-                        });
-                    }
-                }, 2000);
+            this.getDataById(data, options)
+            .then((data) => {
+                resolve(data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
         });
     }
 
-
-    /*async getKittensByIds(data: IGetKittensByIds, options: any) {
-        return Kitten.find({_id: {$in: data._id}});
+    getDataById(data: any, options: any)  {
+        return new Promise((resolve, reject) => {
+            console.log('getDataById', data);
+            setTimeout(() => {
+                if (_.isArray(data.id)) {
+                    resolve(data.id.map((singleId) => {
+                        return {
+                            id: singleId,
+                            data: 'some data'
+                        };
+                    }));
+                } else {
+                    resolve({
+                        id: data.id,
+                        data: 'some data'
+                    });
+                }
+            }, 2000);
+        });
     }
 
-    async getKittenById(_id: string, options: any) {
-        return (Kitten as any).cacheable().findById(_id);
+    @cacheable(memoryProvider, 'ent')
+    @ttl(6)  // optional
+    getEntByIdCacheable(data: any, options: any)  {
+        return new Promise((resolve, reject) => {
+            this.getEntById(data, options)
+            .then((data) => {
+                resolve(data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+        });
     }
 
-    async addKitten(data: IAddKitten, options: any) {
-        if (_.isArray(data.name)) {
-            return Kitten.create(data.name.map((singleName) => {
-                return {
-                    name: singleName
-                };
-            }));
-        } else {
-            return Kitten.create(data);
-        }
-    }*/
+    getEntById(data: any, options: any)  {
+        return new Promise((resolve, reject) => {
+            console.log('called');
+            FeaturedEntity.findAll({})
+            .then((data) => {
+                resolve(data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+        });
+    }
 }

@@ -63,7 +63,7 @@ export function cacheable(cacheProvider: ICacheProvider, name?: string) {
                 writable: descriptor.writable,
                 enumerable: descriptor.enumerable,
                 value(...args: any[]) {
-                    return descriptor['value'].apply(target[GLOBAL_SYMBOL], args);
+                    return descriptor['value'].apply(target, args);
                 }
             };
         }
@@ -112,7 +112,11 @@ export function cacheable(cacheProvider: ICacheProvider, name?: string) {
                         })
                         .then((answers) => {
                             if (_.isArray(values)) {
+                                if (!(foundInputIds && foundInputIds.length)) return answers[0];
+                                if (!(descriptor.value.cacheableOptions && descriptor.value.cacheableOptions && descriptor.value.cacheableOptions.output.idKey)) return answers[0];
+
                                 return answers;
+
                             }
 
                             return answers[0];
@@ -129,7 +133,7 @@ export function cacheable(cacheProvider: ICacheProvider, name?: string) {
             enumerable: descriptor.enumerable,
             value(...args: any[]) {
 
-                return memoizedFn(target[GLOBAL_SYMBOL], 'value', args);
+                return memoizedFn(target, 'value', args);
             }
         };
     };
