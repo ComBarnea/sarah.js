@@ -1,6 +1,6 @@
 {
   "name": "sarah.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "caching lib",
   "main": "lib/index.js",
   "types": "lib/index.js",
@@ -41,9 +41,7 @@
     "zone.js": "^0.8.18"
   },
   "dependencies": {
-    "@types/mongoose": "^4.7.24",
     "lodash": "^4.17.4",
-    "mongoose": "^4.12.4",
     "object-hash": "^1.2.0",
     "reflect-metadata": "^0.1.10"
   }
