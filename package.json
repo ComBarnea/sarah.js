@@ -1,6 +1,6 @@
 {
-  "name": "sarah.js",
-  "version": "0.0.6",
+  "name": "sarahjs",
+  "version": "0.0.1",
   "description": "caching lib",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
