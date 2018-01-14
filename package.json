@@ -1,5 +1,5 @@
 {
-  "name": "sarahjs",
+  "name": "sarahjs/core",
   "version": "0.0.1",
   "description": "caching lib",
   "main": "lib/index.js",
