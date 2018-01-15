@@ -1,6 +1,6 @@
 {
   "name": "@sarahjs/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "caching lib",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -15,6 +15,7 @@
     "build": "tsc",
     "build:examples": "tsc --p examples/tsconfig.json",
     "build:live:examples": "nodemon --exec ./node_modules/.bin/ts-node -- ./examples/src/app.ts"
+
   },
   "repository": {
     "type": "git",
