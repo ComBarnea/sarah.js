@@ -1,6 +1,6 @@
 {
   "name": "@sarahjs/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "caching lib",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build:live",
     "start:exm": "npm run build:live:examples",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
     "build": "tsc",
     "build:examples": "tsc --p examples/tsconfig.json",
     "build:live:examples": "nodemon --exec ./node_modules/.bin/ts-node -- ./examples/src/app.ts"

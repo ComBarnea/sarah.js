@@ -25,6 +25,8 @@ newTestA.getDataByIdCacheable({id: [42, 45, 46]}, {})
 .catch((err) => {
     console.log('err 2', err);
 });
+/*
+
 newTestA.getDataByIdCacheable({}, {})
 .then((data) => {
     console.log('data 1', data[0].entityId);
@@ -35,4 +37,4 @@ newTestA.getDataByIdCacheable({}, {})
 })
 .catch((err) => {
     console.log(err);
-});
+});*/

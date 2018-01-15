@@ -5,17 +5,24 @@ import {ICacheProvider, ICacheProviderOptions} from '../main';
 /**
  * Controll caches lifetime.
  */
-export abstract class CacheProvider implements ICacheProvider {
-    abstract name: string;
+export class CacheProvider implements ICacheProvider {
+    name: string;
+    type: string;
 
     constructor(options?: ICacheProviderOptions) {
-
+        this.type = 'CacheProvider';
     }
 
-    abstract async set(requestedData: { val: any, hash: string }[], ttl?: number): Promise<any | any[]>;
+    async set(requestedData: { val: any, hash: string }[], ttl?: number): Promise<any | any[]> {
+        return;
+    };
 
-    abstract async get(requestedHashes: string[]): Promise<any | any[]>;
+    async get(requestedHashes: string[]): Promise<any | any[]> {
+        return;
+    };
 
-    abstract async invalidateCache(requestedHash: any, ttl: number);
+    async invalidateCache(requestedHash: any, ttl: number) {
+        return;
+    };
 }
 

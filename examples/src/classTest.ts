@@ -1,9 +1,13 @@
-import {cacheable, ttl, cacheableOptions, CacheProviders} from '../../lib';
+import {cacheable, ttl, cacheableOptions} from '../../lib';
 import * as _ from 'lodash';
 'use strict';
-const {MemoryProvider} = CacheProviders;
+import {RedisProvider, IRedisProviderOptions} from '../../../sarah.js-redis';
+import {MemoryProvider} from '../../../sarah.js-memory';
 
+import {inspect} from 'util';
 const memoryProvider = new MemoryProvider({providerName: 'MainProvider'});
+
+const redisProvide = new RedisProvider({providerName: 'MainRedis'});
 
 export interface IGetKittensByIds {
     _id: string[];

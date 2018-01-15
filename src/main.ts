@@ -42,6 +42,8 @@ export interface ICacheableOptions {
  * '%providerName%:%domainName%:?%id%:hash'
  */
 export interface ICacheProvider {
+    name: string;
+    type: string;
     set(requestedData: {val: any, hash: string}[], ttl?: number): Promise<any | any[]>;
     get(requestedHashes: string[]): Promise<any | any[]>;
     invalidateCache(requestedHash: any, ttl: number);
@@ -55,7 +57,7 @@ export interface ICacheProviderOptions {
 export function cacheable(cacheProvider: ICacheProvider, name?: string) {
     return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>): PropertyDescriptor => {
 
-        if (!(cacheProvider instanceof CacheProvider)) {
+        if (!(cacheProvider.type === 'CacheProvider')) {
             console.warn('No cache provider supplied, skipping cache.');
 
             return {
