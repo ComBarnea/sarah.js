@@ -25,6 +25,7 @@ interface ICachableMethod {
     cacheableOptions?: ICacheableOptions;
 }
 
+
 export interface ICacheableOptions {
     input: {
         idKey: any[] | any[][] | any;
@@ -54,7 +55,17 @@ export interface ICacheProviderOptions {
     compareFn?(singleHash: string);
 }
 
-export function cacheable(cacheProvider: ICacheProvider, name?: string) {
+export const func = function (sdsd: string): string {
+    return 'sds';
+};
+
+export function cacheable(cacheProvider: ICacheProvider | any, name?: string) {
+    if (!name && cacheProvider && this.cacheProvider && (typeof cacheProvider === 'string')) {
+        name = cacheProvider as any;
+
+        cacheProvider = this.cacheProvider;
+    }
+
     return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>): PropertyDescriptor => {
 
         if (!(cacheProvider.type === 'CacheProvider')) {
@@ -141,6 +152,11 @@ export function cacheable(cacheProvider: ICacheProvider, name?: string) {
     };
 }
 
+export function initCacheable(cacheableFunction: any, cacheProvider: ICacheProvider): (cacheProvider: ICacheProvider | any, name?: string) => any {
+    cacheableFunction.cacheProvider = cacheProvider;
+
+    return cacheableFunction.bind(cacheableFunction);
+}
 
 export function ttl(ttlOptions: number) {
     return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>): PropertyDescriptor => {

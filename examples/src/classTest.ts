@@ -1,10 +1,9 @@
-import {cacheable, ttl, cacheableOptions} from '../../lib';
+import {ttl, cacheableOptions, cacheable, cacheable as befCacheable, initCacheable} from '../../lib';
 import * as _ from 'lodash';
 'use strict';
 import {RedisProvider, IRedisProviderOptions} from '../../../sarah.js-redis';
 import {MemoryProvider} from '../../../sarah.js-memory';
 
-import {inspect} from 'util';
 const memoryProvider = new MemoryProvider({providerName: 'MainProvider'});
 
 const redisProvide = new RedisProvider({providerName: 'MainRedis'});
@@ -16,6 +15,8 @@ export interface IGetKittensByIds {
 export interface IAddKitten {
     name: string | string[];
 }
+
+const cacheableInitiated = initCacheable(befCacheable, memoryProvider);
 
 export class TestA {
     @cacheable(memoryProvider, 'Kittens')
@@ -36,6 +37,35 @@ export class TestA {
         }
     })
     getDataByIdCacheable(data: any, options: any)  {
+        return new Promise((resolve, reject) => {
+            this.getDataById(data, options)
+            .then((data) => {
+                resolve(data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+
+    @cacheableInitiated('KittensV2')
+    @ttl(6)  // optional
+    @cacheableOptions({  // optional
+        input: {
+            /*idKey:  // ie, on first input object look for an id key
+                {
+                    id: true
+                },*/
+            idKey: 'id',
+            scopeData: 'this-is-scope'
+        },
+        output: {
+            idKey: {
+                id: true
+            }
+        }
+    })
+    getDataByIdCacheableV2(data: any, options: any)  {
         return new Promise((resolve, reject) => {
             this.getDataById(data, options)
             .then((data) => {
