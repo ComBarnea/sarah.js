@@ -2,7 +2,6 @@ import {TestA} from './classTest';
 import * as objectHash from 'object-hash';
 
 const newTestA = new TestA();
-
 console.log('newTestA', typeof newTestA);
 
 newTestA.getDataByIdCacheable({id: [42, 45, 46]}, {})
