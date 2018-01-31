@@ -1,6 +1,6 @@
 
 
-import {ICacheProvider, ICacheProviderOptions} from '../main';
+import { ICacheProvider, ICacheProviderOptions } from '../main.types';
 
 /**
  * Controll caches lifetime.
@@ -15,14 +15,14 @@ export class CacheProvider implements ICacheProvider {
 
     async set(requestedData: { val: any, hash: string }[], ttl?: number): Promise<any | any[]> {
         return;
-    };
+    }
 
     async get(requestedHashes: string[]): Promise<any | any[]> {
         return;
-    };
+    }
 
     async invalidateCache(requestedHash: any, ttl: number) {
         return;
-    };
+    }
 }
 

@@ -1,4 +1,4 @@
-import {TestA} from './classTest';
+import { TestA } from './classTest';
 import * as objectHash from 'object-hash';
 
 const newTestA = new TestA();

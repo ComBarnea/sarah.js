@@ -1,8 +1,8 @@
-import {ttl, cacheableOptions, cacheable, cacheable as befCacheable, initCacheable} from '../../lib';
+import { ttl, cacheableOptions, cacheable, cacheable as befCacheable, initCacheable } from '../../lib';
 import * as _ from 'lodash';
-'use strict';
-import {RedisProvider, IRedisProviderOptions} from '../../../sarah.js-redis';
-import {MemoryProvider} from '../../../sarah.js-memory';
+
+import { RedisProvider, IRedisProviderOptions } from '../../../sarah.js-redis';
+import { MemoryProvider } from '../../../sarah.js-memory';
 
 const memoryProvider = new MemoryProvider({providerName: 'MainProvider'});
 

@@ -8,14 +8,17 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --forceExit",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "start": "npm run build:live",
     "start:exm": "npm run build:live:examples",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
-    "build": "tsc",
+    "build": "tsc && npm run tslint",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
     "build:examples": "tsc --p examples/tsconfig.json",
-    "build:live:examples": "nodemon --exec ./node_modules/.bin/ts-node -- ./examples/src/app.ts"
-
+    "build:live:examples": "nodemon --exec ./node_modules/.bin/ts-node -- ./examples/src/app.ts",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,18 +28,52 @@
     "cache"
   ],
   "author": "Tomer Barnea",
+
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ComBarnea/sarah.js/issues"
   },
+  "jest": {
+    "globals": {
+      "mapCoverage": true
+    },
+    "coverageFormats": [
+      "json",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/*",
+      "!src/index.ts",
+      "!src/**types**",
+      "!**/node_modules/**",
+      "!**/providers/**",
+      "!**/lib/**",
+      "!**/examples/**"
+    ],
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|ts?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
   "homepage": "https://github.com/ComBarnea/sarah.js#readme",
   "devDependencies": {
+    "@types/jest": "^22.1.0",
     "@types/lodash": "^4.14.80",
     "@types/node": "^7.0.5",
     "@types/npm": "^2.0.28",
     "@types/reflect-metadata": "0.0.5",
+    "jest": "^22.1.4",
     "nodemon": "^1.12.1",
     "reflect-metadata": "^0.1.10",
+    "ts-jest": "^22.0.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
     "zone.js": "^0.8.18"
